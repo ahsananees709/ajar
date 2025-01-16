@@ -1,0 +1,1 @@
+ALTER TABLE "vehicles" ALTER COLUMN "pictures" DROP NOT NULL;

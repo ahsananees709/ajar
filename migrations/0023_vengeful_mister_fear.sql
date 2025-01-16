@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "online" boolean DEFAULT false;

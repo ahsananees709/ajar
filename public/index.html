@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental Payment</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        /* Your existing styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .main-container {
+            display: flex;
+            background-color: #f9f9f9;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .car-details {
+            background-color: #f9f9f9;
+            padding: 20px;
+            flex: 1;
+            border-right: 2px solid #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .car-details img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .car-details h3 {
+            margin-top: 10px;
+            font-size: 24px;
+            color: #333;
+        }
+        .car-details p {
+            color: #555;
+            margin: 5px 0;
+        }
+        .payment-container {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+        #card-number, #card-expiry, #card-cvc {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 100%;
+        }
+        #submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #submit:hover {
+            background-color: #0056b3;
+        }
+        #payment-message, #error-message {
+            margin-top: 20px;
+            text-align: center;
+        }
+        #payment-message {
+            color: green;
+        }
+        #error-message {
+            color: red;
+        }
+
+        /* Invoice Section Styles */
+        .invoice-container {
+            background-color: #f9f9f9;
+            flex: 1;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .invoice-title {
+            font-size: 28px;
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .invoice-detail {
+            margin-bottom: 15px;
+        }
+        .invoice-detail label {
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+            width: 120px;
+        }
+        .invoice-detail p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .invoice-summary {
+            border-top: 2px solid #007bff;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        .total-cost {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            text-align: right;
+            margin-top: 10px;
+        }
+        .divider {
+            border-bottom: 1px solid #eee;
+            margin: 10px 0;
+        }
+        .cost-breakdown {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .cost-breakdown th, .cost-breakdown td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .cost-breakdown th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+        .cost-breakdown tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .total-label {
+            font-weight: bold;
+            text-align: right;
+        }
+        .total-cost {
+            font-weight: bold;
+            color: #333;
+        }
+        .card-logos {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card-logo {
+    width: 50px;  /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 15px; /* Spacing between logos */
+}
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Invoice Section -->
+        <div class="car-details">
+            <div class="invoice-container">
+                <div class="invoice-title">Invoice Details</div>
+                <div class="invoice-detail">
+                    <label>Vehicle:</label>
+                    <p id="vehicle-name">Loading...</p>
+                </div>
+                <div class="invoice-detail">
+                    <label>Pickup Date:</label>
+                    <p id="pickup-date">Loading...</p>
+                </div>
+                <div class="invoice-detail">
+                    <label>Return Date:</label>
+                    <p id="return-date">Loading...</p>
+                </div>
+                <div class="invoice-detail">
+                    <label>Pickup Location:</label>
+                    <p id="pickup-location">Loading...</p>
+                </div>
+                <div class="divider"></div>
+                <div class="invoice-summary">
+                    <label>Cost Breakdown:</label>
+                    <table class="cost-breakdown">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Cost</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cost-breakdown">
+                            <!-- Cost breakdown will be dynamically filled here -->
+                            <tr>
+                                <td colspan="3">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="total-cost" id="total-cost">Total: Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Form Section -->
+        <div class="payment-container">
+            <div class="invoice-title">Payment</div>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <div id="card-number"></div>
+                </div>
+                <div class="form-group">
+                    <label for="card-expiry">Expiry Date</label>
+                    <div id="card-expiry"></div>
+                </div>
+                <div class="form-group">
+                    <label for="card-cvc">CVC</label>
+                    <div id="card-cvc"></div>
+                </div>
+                <button id="submit">Pay</button>
+                <div id="payment-message" class="hidden"></div>
+                <div id="error-message" class="hidden"></div>
+            </form>
+            <div class="card-logos">
+                <img src="visa.png" alt="Visa" class="card-logo" />
+                <img src="master-card.png" alt="MasterCard" class="card-logo" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const stripe = Stripe('your-publishable-key-here'); // Replace with your Stripe publishable key
+        const elements = stripe.elements();
+        
+        const cardNumber = elements.create('cardNumber');
+        cardNumber.mount('#card-number');
+        
+        const cardExpiry = elements.create('cardExpiry');
+        cardExpiry.mount('#card-expiry');
+        
+        const cardCvc = elements.create('cardCvc');
+        cardCvc.mount('#card-cvc');
+
+        // Function to fetch booking details using the booking ID from the URL
+        async function fetchBookingDetails(bookingId) {
+            try {
+                const response = await fetch(`http://192.168.1.27:3000/api/client/booking/${bookingId}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const bookingData = await response.json();
+                displayBookingDetails(bookingData.data);
+            } catch (error) {
+                console.error('Error fetching booking details:', error);
+                document.getElementById('vehicle-name').textContent = 'Error loading vehicle info.';
+                document.getElementById('pickup-date').textContent = 'N/A';
+                document.getElementById('return-date').textContent = 'N/A';
+                document.getElementById('pickup-location').textContent = 'N/A';
+            }
+        }
+
+        // Function to display booking details on the page
+        function displayBookingDetails(data) {
+            document.getElementById('vehicle-name').textContent = `${data.vehicle.make} ${data.vehicle.model} (${data.vehicle.year})`;
+            document.getElementById('pickup-date').textContent = data.invoice.invoice.startDate;
+            document.getElementById('return-date').textContent = data.invoice.invoice.endDate;
+            const address = `street ${data.renter_address.street_no}, ${data.renter_address.city}, ${data.renter_address.postal_code}, ${data.renter_address.state}, ${data.renter_address.country}`;
+            document.getElementById('pickup-location').textContent = address;
+
+            // Populate cost breakdown
+            const costBreakdownElement = document.getElementById('cost-breakdown');
+            costBreakdownElement.innerHTML = ''; // Clear existing entries
+
+            const items = [
+                { description: 'Vehicle Rental', cost: data.invoice.invoice.vehicle.total, details: data.invoice.invoice.vehicle.calculation },
+                { description: 'Driver Fee', cost: data.invoice.invoice.driver.total, details: data.invoice.invoice.driver.calculation },
+                { description: 'Delivery Fee', cost: data.invoice.invoice.delivery.total, details: data.invoice.invoice.delivery.calculation },
+            ];
+
+            items.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.description}</td>
+                    <td>${item.cost}</td>
+                    <td>${item.details}</td>
+                `;
+                costBreakdownElement.appendChild(row);
+            });
+
+            // Display total cost
+            document.getElementById('total-cost').textContent = `Total: ${data.total_price}`;
+            document.getElementById('submit').textContent = `Pay $${(data.total_price)}`; // Convert to dollars
+        }
+
+        // Get booking ID from URL and fetch details
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookingId = urlParams.get('bookingId'); // Assuming your URL has ?bookingId=...
+
+        if (bookingId) {
+            fetchBookingDetails(bookingId);
+        } else {
+            console.error('Booking ID is missing from the URL.');
+        }
+
+        // Payment form submission
+        const form = document.getElementById('payment-form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Fetch the client secret from your server
+            const { clientSecret } = await fetch('/create-rental-payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ bookingId: bookingId, totalPrice: 3500 }) // Replace with actual total price
+            }).then(r => r.json());
+
+            const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: cardNumber,
+                }
+            });
+
+            if (error) {
+                document.getElementById('error-message').textContent = error.message;
+                document.getElementById('error-message').classList.remove('hidden');
+            } else {
+                document.getElementById('payment-message').textContent = 'Payment successful!';
+                document.getElementById('payment-message').classList.remove('hidden');
+                document.getElementById('error-message').classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+ALTER TABLE "vehicles" ADD COLUMN "search_term" text DEFAULT null;

@@ -1,0 +1,1 @@
+ALTER TABLE "bookings" ALTER COLUMN "total_price" SET DATA TYPE numeric(5, 2);

@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "driving_license_details" json;

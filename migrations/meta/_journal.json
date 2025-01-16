@@ -1,0 +1,181 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1728042641247,
+      "tag": "0000_high_falcon",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1728045858392,
+      "tag": "0001_odd_raza",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1728046009912,
+      "tag": "0002_closed_madripoor",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1728299473664,
+      "tag": "0003_tricky_the_order",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1728321360528,
+      "tag": "0004_wonderful_psynapse",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1728321522984,
+      "tag": "0005_small_ben_parker",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1728914582695,
+      "tag": "0006_cold_sunspot",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1728917785043,
+      "tag": "0007_sudden_black_knight",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1728994657418,
+      "tag": "0008_fancy_ghost_rider",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1728999371612,
+      "tag": "0009_busy_rocket_racer",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1729074725328,
+      "tag": "0010_cloudy_network",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1729166253797,
+      "tag": "0011_fast_shockwave",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1729167235213,
+      "tag": "0012_gigantic_penance",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1729177324262,
+      "tag": "0013_fantastic_husk",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1729253753752,
+      "tag": "0014_young_hawkeye",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1729345904963,
+      "tag": "0015_oval_phalanx",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1729511075111,
+      "tag": "0016_daily_blacklash",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1729594973357,
+      "tag": "0017_slow_morbius",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1729939789070,
+      "tag": "0018_flippant_jack_murdock",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1729939885352,
+      "tag": "0019_flawless_malcolm_colcord",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1729940185741,
+      "tag": "0020_purple_luckman",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1736853286187,
+      "tag": "0021_breezy_tomorrow_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1736862146035,
+      "tag": "0022_last_wallow",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1736938440636,
+      "tag": "0023_vengeful_mister_fear",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1736946078916,
+      "tag": "0024_small_spiral",
+      "breakpoints": true
+    }
+  ]
+}

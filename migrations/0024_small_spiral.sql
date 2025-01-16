@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "activeConversation" uuid DEFAULT null;

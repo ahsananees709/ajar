@@ -1,0 +1,37 @@
+{
+  "name": "ajar",
+  "version": "1.0.0",
+  "description": "It's a car rental app belongs to a US client, and its replica of turo car rental app.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js",
+    "generate": "drizzle-kit generate",
+    "migrate": "node -r esbuild-register ./db/migrate.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.33.0",
+    "express": "^4.21.0",
+    "firebase-admin": "^13.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.15",
+    "pg": "^8.13.0",
+    "postgres": "^3.4.4",
+    "socket.io": "^4.8.0",
+    "zod": "^3.23.8",
+    "zod-express-middleware": "^1.4.0"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.24.2",
+    "nodemon": "^3.1.7"
+  }
+}
